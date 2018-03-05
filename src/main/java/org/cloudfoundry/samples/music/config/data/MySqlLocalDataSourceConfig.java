@@ -12,7 +12,8 @@ public class MySqlLocalDataSourceConfig extends AbstractLocalDataSourceConfig {
 
     @Bean
     public DataSource dataSource() {
-        return createDataSource("jdbc:mysql://localhost/music", "com.mysql.jdbc.Driver", "", "");
+        return createDataSource("jdbc:mysql://localhost:3306/springmusic?useSSL=false",
+         "com.mysql.jdbc.Driver", "guest", "guest");
     }
 
 }

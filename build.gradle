@@ -65,7 +65,8 @@ dependencies {
     // Application Insights
     compile "com.microsoft.azure:applicationinsights-web:2.+"
 	compile "com.microsoft.azure:applicationinsights-core:2.+"
-    compile files('applicationinsights-agent-2.0.1.jar')
+    compile "com.microsoft.azure:applicationinsights-logging-logback:2.+"
+    //compile files('applicationinsights-agent-2.0.1.jar')
     // Testing
     testCompile "junit:junit"
     testCompile "org.springframework.boot:spring-boot-starter-test"
@@ -74,4 +75,12 @@ dependencies {
 jar {
     baseName = "spring-music"
     version = "" // omit the version from the war file name
+    manifest {
+        attributes(
+                'Premain-Class': 'com.microsoft.applicationinsights.agent.internal.agent.AgentImplementation',
+                'Agent-Class': 'com.microsoft.applicationinsights.agent.internal.agent.AgentImplementation',
+                'Can-Redefine-Classes': 'true',
+                'Can-Retransform-Classes': 'true'
+        )
+    }
 }
