@@ -86,7 +86,8 @@ jar {
     baseName = "spring-music"
     version = "" // omit the version from the war file name
     entryCompression ZipEntryCompression.STORED
-    
+    from configurations.appinsights.files
+
    // manifest {
      //   attributes(
        //         'Premain-Class': 'com.microsoft.applicationinsights.agent.internal.agent.AgentImplementation',
