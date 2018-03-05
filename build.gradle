@@ -2,6 +2,7 @@ buildscript {
     ext {
         springBootVersion = '1.5.4.RELEASE'
         springCloudConnectorsVersion = '1.2.4.RELEASE'
+        gradlePluginVesion = '2.0.1.BUILD-SNAPSHOT'
     }
 
     repositories {
@@ -29,6 +30,14 @@ targetCompatibility = 1.8
 
 repositories {
     mavenCentral()
+}
+
+springBoot {
+    mainClass 'org.cloudfoundry.samples.music.Application'
+}
+
+configurations {
+    appinsights
 }
 
 dependencies {
@@ -66,7 +75,8 @@ dependencies {
     compile "com.microsoft.azure:applicationinsights-web:2.+"
 	compile "com.microsoft.azure:applicationinsights-core:2.+"
     compile "com.microsoft.azure:applicationinsights-logging-logback:2.+"
-    //compile files('applicationinsights-agent-2.0.1.jar')
+    appinsights files('agent/applicationinsights-agent-2.0.1.jar','agent/AI-Agent.xml')
+   // appinsights files('agent/AI-Agent.xml')
     // Testing
     testCompile "junit:junit"
     testCompile "org.springframework.boot:spring-boot-starter-test"
@@ -75,12 +85,35 @@ dependencies {
 jar {
     baseName = "spring-music"
     version = "" // omit the version from the war file name
+    entryCompression ZipEntryCompression.STORED
+    
+   // manifest {
+     //   attributes(
+       //         'Premain-Class': 'com.microsoft.applicationinsights.agent.internal.agent.AgentImplementation',
+         //       'Agent-Class': 'com.microsoft.applicationinsights.agent.internal.agent.AgentImplementation',
+           //     'Can-Redefine-Classes': 'true',
+           //     'Can-Retransform-Classes': 'true'
+       // )
+    //}
+}
+// https://github.com/spring-projects/spring-boot/issues/6626
+
+task extractManifest(type: Copy) {
+    dependsOn bootRepackage
+    from(zipTree(jar.outputs.files.singleFile))
+    include 'META-INF/MANIFEST.MF'
+    into 'build/extracted'
+}
+
+
+task jarWithAgent(type: Jar) {
+    dependsOn extractManifest
+    classifier 'with-agent'
+    entryCompression ZipEntryCompression.STORED
+    from zipTree(jar.outputs.files.singleFile)
+    from configurations.appinsights.files
+
     manifest {
-        attributes(
-                'Premain-Class': 'com.microsoft.applicationinsights.agent.internal.agent.AgentImplementation',
-                'Agent-Class': 'com.microsoft.applicationinsights.agent.internal.agent.AgentImplementation',
-                'Can-Redefine-Classes': 'true',
-                'Can-Retransform-Classes': 'true'
-        )
+        from new File(extractManifest.outputs.files.singleFile, '/META-INF/MANIFEST.MF')
     }
 }
