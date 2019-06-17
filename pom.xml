@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>2.1.5.RELEASE</version>
+		<relativePath/>
+		<!-- lookup parent from repository -->
+	</parent>
+	<groupId>org.cloudfoundry.samples.music</groupId>
+	<artifactId>spring-music</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>spring-music</name>
+	<description>Demo project for Spring Boot</description>
+
+	<properties>
+		<java.version>1.8</java.version>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-mongodb</artifactId>
+            <scope>compile</scope>
+		</dependency>
+
+
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-spring-service-connector</artifactId>
+			<version>2.0.1.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-cloudfoundry-connector</artifactId>
+			<version>2.0.1.RELEASE</version>
+		</dependency>
+
+
+
+		<dependency>
+    		<groupId>commons-dbcp</groupId>
+   			<artifactId>commons-dbcp</artifactId>
+    		<version>1.4</version>
+		</dependency>
+
+      
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.microsoft.sqlserver</groupId>
+			<artifactId>mssql-jdbc</artifactId>
+		</dependency>
+
+		<!-- webjars -->
+		<dependency>
+			<groupId>org.webjars</groupId>
+			<artifactId>bootstrap</artifactId>
+			<version>3.1.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.webjars</groupId>
+			<artifactId>angularjs</artifactId>
+			<version>1.2.16</version>
+		</dependency>
+		<dependency>
+			<groupId>org.webjars</groupId>
+			<artifactId>angular-ui</artifactId>
+			<version>0.4.0-2</version>
+		</dependency>
+		<dependency>
+			<groupId>org.webjars</groupId>
+			<artifactId>angular-ui-bootstrap</artifactId>
+			<version>0.10.0-1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.webjars</groupId>
+			<artifactId>jquery</artifactId>
+			<version>2.1.0-2</version>
+		</dependency>
+
+	   <!-- APP Insights -->
+		<dependency>
+			<groupId>com.microsoft.azure</groupId>
+			<artifactId>applicationinsights-spring-boot-starter</artifactId>
+			<version>1.2.0-BETA</version>
+		</dependency>
+		<dependency>
+			<groupId>com.microsoft.azure</groupId>
+			<artifactId>applicationinsights-logging-logback</artifactId>
+			<version>2.4.0-BETA</version>
+		</dependency>
+
+		<dependency> 
+			<groupId>com.microsoft.azure</groupId>
+			<artifactId>azure-spring-boot-metrics-starter</artifactId>
+			<version>2.1.6</version>
+		</dependency>	
+
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient</artifactId>
+			<version>4.5.9</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>com.microsoft.azure</groupId>
+				<artifactId>azure-webapp-maven-plugin</artifactId>
+				<version>1.6.0</version>
+				<configuration>
+					<authentication>
+						<serverId>azure-auth</serverId>
+					</authentication>
+					<!-- Web App information testjndiapp2 -->
+					<resourceGroup>springboot</resourceGroup>
+					<appName>springprof</appName>
+					<!-- <region> and <pricingTier> are optional. They will be used to create new Web App if the specified Web App doesn't exist -->
+					<region>centralus</region>
+					<pricingTier>S1</pricingTier>
+
+					<!-- Java Runtime Stack for Web App on Windows-->
+					<javaVersion>1.8.0_181</javaVersion>
+					<javaWebContainer>tomcat 8.5</javaWebContainer>
+					<stopAppDuringDeployment>true</stopAppDuringDeployment>
+
+					<appSettings>
+						<property>
+                      		<name>JAVA_OPTS</name>
+                      		<value>-javaagent:D:\home\site\wwwroot\agent\applicationinsights-agent-2.4.0-BETA.jar -Dspring.profiles.active=sqlserver</value>
+                  		</property>
+					</appSettings>
+
+					<deploymentType>ftp</deploymentType>
+					<!-- Resources to be deployed to your Web App -->
+					<resources>
+						<resource>
+							<!-- Where your artifacts are stored -->
+							<directory>${project.basedir}/target</directory>
+							<includes>
+								<include>*.jar</include>
+							</includes>
+						</resource>
+						<resource>
+							<!-- Where your artifacts are stored -->
+							<directory>${project.basedir}</directory>
+							<!-- Relative path to /site/wwwroot/ -->
+							<targetPath>.</targetPath>
+							<includes>
+								<!--<include>web.config</include>-->
+								<include>*.config</include>
+							</includes>
+						</resource>
+						<resource>
+							<!-- Where your artifacts are stored -->
+							<directory>${project.basedir}/agent</directory>
+							<!-- Relative path to /site/wwwroot/ -->
+							<targetPath>agent</targetPath>
+							<includes>
+								<include>*</include>
+							</includes>
+						</resource>
+					</resources>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>
