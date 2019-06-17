@@ -23,7 +23,7 @@ hs_err_pid*
 
 bin/
 build/
-target/
+
 .vscode/
 .settings/
 .project
