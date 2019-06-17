@@ -17,7 +17,10 @@ azure:
 management:
   security:
     enabled: false
-
+  endpoints:
+    web:
+      exposure:
+        include: "*"
 ---
 spring:
   profiles: sqlserver

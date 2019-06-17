@@ -24,13 +24,21 @@
              and method execution times -->
 
         <Class name="org.cloudfoundry.samples.music.repositories.jpa.JpaAlbumRepository" Type="Service" enabled="true">
-           <!--Method name="slow"
+           <Method name="findAll"
                reportCaughtExceptions="true"
                reportExecutionTime="true"
-               />-->
+               />
 
            
         </Class>
 
+          <Class name="org.springframework.data.jpa.repository.support.SimpleJpaRepository" Type="Service" enabled="true">
+              <Method name="findAll"
+                      reportCaughtExceptions="true"
+                      reportExecutionTime="true"
+              />
+
+
+          </Class>
       </Instrumentation>
     </ApplicationInsightsAgent>

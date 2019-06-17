@@ -8,6 +8,7 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import io.micrometer.core.annotation.Timed;
 
 @RestController
 @RequestMapping(value = "/albums")
@@ -21,6 +22,7 @@ public class AlbumController {
     }
 
     @RequestMapping(method = RequestMethod.GET)
+    @Timed("albums-all")
     public Iterable<Album> albums() {
         return repository.findAll();
     }
