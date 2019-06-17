@@ -23,7 +23,7 @@
         <!-- Collect data about caught exceptions
              and method execution times -->
 
-        <Class name="com.microsoft.demoai.HelloUtils" Type="Service" enabled="true">
+        <Class name="org.cloudfoundry.samples.music.repositories.jpa.JpaAlbumRepository" Type="Service" enabled="true">
            <!--Method name="slow"
                reportCaughtExceptions="true"
                reportExecutionTime="true"

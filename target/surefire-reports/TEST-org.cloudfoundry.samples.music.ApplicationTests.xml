@@ -62,4 +62,4 @@
     <property name="java.class.version" value="52.0"/>
   </properties>
   <testcase name="contextLoads" classname="org.cloudfoundry.samples.music.ApplicationTests" time="0.169"/>
-</testsuit
+</testsuite>
