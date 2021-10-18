@@ -25,7 +25,7 @@ management:
 spring:
   profiles: sqlserver
   datasource:
-    url: "jdbc:sqlserver://springsrv.database.windows.net:1433;database=springdemo;encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;"
+    url: "jdbc:sqlserver://springmusicsrv.database.windows.net:1433;database=springmusic;encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;"
     driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
     username: ${DB_USER}
     password: ${DB_PASSWORD}
