@@ -4,13 +4,13 @@
     <springProperty scope="context" name="INSTRUMENTATION_KEY"
                     source="azure.application-insights.instrumentation-key"/>
 
-    <appender name="aiAppender"
+    <!--<appender name="aiAppender"
               class="com.microsoft.applicationinsights.logback.ApplicationInsightsAppender">
         <instrumentationKey>${INSTRUMENTATION_KEY}</instrumentationKey>
-    </appender>
+    </appender>-->
 
     <root level="INFO">
-        <appender-ref ref="aiAppender" />
+        <!--<appender-ref ref="aiAppender" />-->
         <appender-ref ref="FILE" />
         <appender-ref ref="CONSOLE" />
     </root>
