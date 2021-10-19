@@ -1,0 +1,8 @@
+GET https://springappinsights.azurewebsites.net/spring-music-1.0/albums HTTP/1.1
+content-type: application/json
+
+curl https://springappinsights.azurewebsites.net/spring-music-1.0/albums/a0baa5a9-30d4-4da6-82cd-626f9fe08079
+
+curl -d '{"title":"Show Must Go On2","artist":"Queens","releaseYear":"1980","genre":"Rock"}' -H "Content-Type: application/json" -X POST https://springappinsights.azurewebsites.net/spring-music-1.0/albums
+
+for ((i=1;i<=10;i++)); do curl https://springappinsights.azurewebsites.net/spring-music-1.0/hello/track; done
