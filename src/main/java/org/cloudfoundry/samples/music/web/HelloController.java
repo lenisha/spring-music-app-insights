@@ -85,7 +85,7 @@ public class HelloController {
             throw new NullPointerException();
         } catch (Exception ex) {
             telemetryClient.trackException(ex);
-            log.logException(ex, Level.SEVERE);
+            log.error("Error",ex);
             ex.printStackTrace();
         }
         return "hello";
