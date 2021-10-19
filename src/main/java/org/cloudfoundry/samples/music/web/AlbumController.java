@@ -13,7 +13,7 @@ import io.micrometer.core.annotation.Timed;
 @RestController
 @RequestMapping(value = "/albums")
 public class AlbumController {
-    private static final com.sun.istack.internal.logging.Logger logger = LoggerFactory.getLogger(AlbumController.class);
+    private static final Logger logger = LoggerFactory.getLogger(AlbumController.class);
     private CrudRepository<Album, String> repository;
 
     @Autowired

@@ -25,7 +25,7 @@ import io.micrometer.core.annotation.Timed;
 @RestController
 @RequestMapping("/hello")
 public class HelloController {
-    private final com.sun.istack.internal.logging.Logger log = LoggerFactory.getLogger(HelloController.class);
+    private final Logger log = LoggerFactory.getLogger(HelloController.class);
 
     @Autowired
     TelemetryClient telemetryClient;

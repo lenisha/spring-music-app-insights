@@ -9,10 +9,16 @@ spring:
   application:
     name: SpringMusic
 
+logging:
+  level:
+    ROOT: INFO
+    org.cloudfoundry.samples.music.web: INFO
+
 azure:
   application-insights:
     instrumentation-key: ${APPINSIGHTS_INSTRUMENTATIONKEY}
-
+    logger:
+      level: info
 # turn off the security on the actuator end points as this is a demo app
 management:
   security:
