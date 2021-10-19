@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
+import java.util.logging.Level;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,7 +25,7 @@ import io.micrometer.core.annotation.Timed;
 @RestController
 @RequestMapping("/hello")
 public class HelloController {
-    private final Logger log = LoggerFactory.getLogger(HelloController.class);
+    private final com.sun.istack.internal.logging.Logger log = LoggerFactory.getLogger(HelloController.class);
 
     @Autowired
     TelemetryClient telemetryClient;
@@ -83,7 +84,8 @@ public class HelloController {
         try {
             throw new NullPointerException();
         } catch (Exception ex) {
-            //telemetryClient.trackException(ex);
+            telemetryClient.trackException(ex);
+            log.logException(ex, Level.SEVERE);
             ex.printStackTrace();
         }
         return "hello";
